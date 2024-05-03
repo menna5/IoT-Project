@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Climate control system</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #7db9e8, #a5d8ff);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            outline: none;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(to bottom, #4da1ff, #357dbd);
+        }
+
+        .temp {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Climate control system</h1>
+        <a href="/humid" class="btn">Humidity</a>
+        <a href="/photo" class="btn">Photo</a>
+        <a href="/temp" class="btn">Temperature</a>
+
+        <!-- Add your Plotly visualizations here -->
+        <div id="plotly-div" style="width: 600px; height: 400px;"></div>
+        <script>
+            var tempFig_json = {{ tempFig | safe }};
+            Plotly.newPlot('plotly-div', tempFig_json.data, tempFig_json.layout);
+        </script>
+  <a href="/">Back to Home</a>  
+  </div>
+</body>
+
+</html>
