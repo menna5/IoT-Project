@@ -4,7 +4,7 @@ class ImageTextWidget extends StatelessWidget {
   final String imagePath;
   final String text;
 
-  ImageTextWidget({required this.imagePath, required this.text});
+  ImageTextWidget({required this.imagePath, required this.text, required String fontFamily});
 
 
   @override

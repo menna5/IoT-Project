@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -23,14 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _connectToMqtt() async {
-    client = MqttServerClient('your_mqtt_server', 'your_client_id');
+    client = MqttServerClient('192.168.1.7', 'MobileApp');
     client.port = 1883;
     client.keepAlivePeriod = 20;
     client.onConnected = _onConnected;
     client.logging(on: true);
 
     final connMessage = MqttConnectMessage()
-        .withClientIdentifier('your_client_id')
+        .withClientIdentifier('MobileApp')
         .startClean()
         .keepAliveFor(20)
         .withWillQos(MqttQos.atMostOnce);
@@ -46,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (client.connectionStatus?.state == MqttConnectionState.connected) {
       print('Client connected');
-      client.subscribe('topic/x', MqttQos.atMostOnce);
-      client.subscribe('topic/y', MqttQos.atMostOnce);
-      client.subscribe('topic/z', MqttQos.atMostOnce);
+      client.subscribe('humid', MqttQos.atMostOnce);
+      client.subscribe('temp', MqttQos.atMostOnce);
+      client.subscribe('photo', MqttQos.atMostOnce);
 
       client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> c) {
         final MqttPublishMessage message = c[0].payload as MqttPublishMessage;
@@ -57,11 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
         print('Received message:$payload from topic: ${c[0].topic}');
         setState(() {
-          if (c[0].topic == 'topic/x') {
+          if (c[0].topic == 'humid') {
             xValue = payload;
-          } else if (c[0].topic == 'topic/y') {
+          } else if (c[0].topic == 'temp') {
             yValue = payload;
-          } else if (c[0].topic == 'topic/z') {
+          } else if (c[0].topic == 'photo') {
             zValue = payload;
           }
         });
@@ -171,21 +173,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ImageTextWidget(
                             imagePath: 'assets/images/icon (4).png',
-                            text: 'X: $xValue',
+                            text: 'Humidity: $xValue', fontFamily: '',
                           ),
                           SizedBox(
                             height: 30,
                           ),
                           ImageTextWidget(
                             imagePath: 'assets/images/icon (4).png',
-                            text: 'Y: $yValue',
+                            text: 'Temperature: $yValue', fontFamily: '',
                           ),
                           SizedBox(
                             height: 30,
                           ),
                           ImageTextWidget(
                             imagePath: 'assets/images/icon (4).png',
-                            text: 'Z: $zValue',
+                            text: 'Photoresistor: $zValue', fontFamily: '',
                           ),
                         ],
                       ),
