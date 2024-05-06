@@ -70,16 +70,20 @@
         <a href="/humid" class="btn">Humidity</a>
         <a href="/photo" class="btn">Photo</a>
         <a href="/temp" class="btn">Temperature</a>
+        <a href="/predict" class="btn">Predict</a>
         <form method="post">
             <label for="input_time">Enter time:</label>
             <input type="datetime-local" id="input_time" name="input_time">
             <input type="submit" value="Predict">
         </form>
+        {% if input_time %}
+            <p>Temperature prediction for {{ input_time }}: {{ predicted_temperature }} °C</p>
+        {% endif %}
         <!-- Add your Plotly visualizations here -->
         <div id="plotly-div" style="width: 600px; height: 400px;"></div>
         <script>
-            var PhotoFig_json = {{ PhotoFig | safe }};
-            Plotly.newPlot('plotly-div', PhotoFig_json.data, PhotoFig_json.layout);
+            var Fig_json = {{ PredictFig | safe }};
+            Plotly.newPlot('plotly-div', Fig_json.data, Fig_json.layout);
         </script>
   <a href="/">Back to Home</a>  
   </div>
