@@ -6,8 +6,8 @@
 #define LED_PIN2 D2           // Define the pin connected to the LED
 #define DHT_PIN D5           // Define the pin connected to the DHT sensor
 
-const char* ssid = "Marawan";  // Replace with your WiFi network name
-const char* password = "Mony@2481@2525";  // Replace with your WiFi password
+const char* ssid = "";  // Replace with your WiFi network name
+const char* password = "";  // Replace with your WiFi password
 const char* broker = "192.168.1.9";  // Replace with your MQTT broker address
 const int port = 1883;
 
